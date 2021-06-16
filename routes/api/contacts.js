@@ -37,30 +37,17 @@ router.post("/", async (req, res) => {
   res.json({ message: "template message" })
 })
 
+//-----------------------------------
 router.delete("/:contactId", async (req, res) => {
-  const { contactId } = req.params
+  const { contactId } = req.params;
+   deleteContact=contacts.filter(contact=> contact.id.toString()!== contactId);
+ 
+  
+  
 
-  const deletedContact = await removeContact(contactId)
-  try {
-    const currentList = await fs.readFile(contacts, "utf-8")
-    const updatedList = JSON.parse(currentList).filter(
-      (item) => item.id != contactId
-    )
-    const deletedContact = JSON.parse(currentList).find(
-      (item) => item.id == contactId
-    )
-    const contacts = await fs.writeFile(
-      contacts,
-      JSON.stringify(updatedList, null, 2),
-      "utf-8"
-    )
-    return deletedContact
-  } catch (error) {
-    console.log(error, message)
-  }
 
-  res.json({ deletedContact, message: "contact deleted" })
-})
+
+  //---------------------------------------------
 
 router.patch("/:contactId", async (req, res) => {
   res.json({ message: "template message" })

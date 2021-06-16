@@ -28,8 +28,10 @@ const removeContact = async (contactId) => {
     const removeCont = JSON.parse(removeById).filter(
       (item) => item.id != contactId
     )
+
     const newContacts = JSON.stringify(removeCont)
     await fs.writeFile(contacts, newContacts, "utf-8")
+    return newContacts
   } catch (error) {
     console.log(error.message)
   }
